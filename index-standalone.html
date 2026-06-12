@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GO. — 3D & Motion Works</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Condiment&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #010828; color: #EFF4FF; font-family: sans-serif; overflow-x: hidden; }
+
+    .liquid-glass {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    /* ── Section base ── */
+    section { position: relative; width: 100%; overflow: hidden; }
+
+    /* ── HERO ── */
+    .hero { min-height: 100vh; background: #010828; display: flex; flex-direction: column; }
+    .hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .hero-inner {
+      position: relative; z-index: 10;
+      max-width: 1831px; margin: 0 auto;
+      padding: 0 56px; width: 100%;
+      display: flex; flex-direction: column; min-height: 100vh;
+    }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 32px;
+    }
+    .logo-text {
+      font-family: 'Anton', sans-serif;
+      font-size: 32px; text-transform: uppercase; letter-spacing: 0.08em; color: #EFF4FF;
+    }
+    .main-nav {
+      border-radius: 28px; padding: 20px 52px;
+    }
+    .main-nav ul { display: flex; gap: 40px; list-style: none; }
+    .main-nav a {
+      font-family: 'Anton', sans-serif;
+      font-size: 17px; text-transform: uppercase; color: #EFF4FF;
+      text-decoration: none; transition: color 0.2s;
+    }
+    .main-nav a:hover { color: #6FFF00; }
+    .social-col { display: flex; flex-direction: column; gap: 12px; }
+    .social-btn {
+      width: 56px; height: 56px;
+      border-radius: 16px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border: 0; background: transparent;
+      transition: background 0.2s;
+    }
+    .social-btn:hover { background: rgba(255,255,255,0.1); }
+    .social-btn svg { fill: none; stroke: #EFF4FF; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .hero-text {
+      flex: 1; display: flex; flex-direction: column; justify-content: flex-end;
+      padding-bottom: 96px; margin-left: 128px; max-width: 780px; position: relative;
+    }
+    .hero-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(48px, 7vw, 90px);
+      text-transform: uppercase; line-height: 1.0; color: #EFF4FF;
+    }
+    .accent {
+      font-family: 'Condiment', cursive;
+      position: absolute; top: -32px; right: -32px;
+      font-size: clamp(24px, 3.5vw, 48px);
+      color: #6FFF00; transform: rotate(-1deg); opacity: 0.9;
+      mix-blend-mode: exclusion;
+    }
+
+    /* ── ABOUT ── */
+    .about { min-height: 100vh; background: #010828; }
+    .about video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .about-inner {
+      position: relative; z-index: 10;
+      max-width: 1831px; margin: 0 auto;
+      padding: 96px 56px; display: flex; flex-direction: column;
+      justify-content: space-between; min-height: 100vh;
+    }
+    .about-top { display: flex; align-items: flex-start; gap: 64px; }
+    .about-heading-wrap { position: relative; flex: 1; }
+    .about-heading {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(32px, 5vw, 60px);
+      text-transform: uppercase; line-height: 1.1; color: #EFF4FF;
+    }
+    .accent-about {
+      font-family: 'Condiment', cursive;
+      font-size: clamp(36px, 5vw, 68px);
+      color: #6FFF00; transform: rotate(-2deg); opacity: 0.9;
+      mix-blend-mode: exclusion;
+      position: absolute; bottom: 0; right: 0;
+    }
+    .about-desc {
+      max-width: 266px; font-size: 14px; text-transform: uppercase;
+      color: #EFF4FF; font-family: monospace; line-height: 1.6;
+    }
+    .about-bottom { display: flex; justify-content: space-between; margin-top: 48px; }
+    .about-ghost {
+      font-size: 12px; text-transform: uppercase; opacity: 0.1;
+      color: #EFF4FF; font-family: monospace; line-height: 1.6; max-width: 40%;
+    }
+
+    /* ── WORKS ── */
+    .works { background: #010828; padding: 96px 56px; }
+    .works-inner { max-width: 1831px; margin: 0 auto; }
+    .works-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; flex-wrap: wrap; gap: 32px; }
+    .works-title-block h2 {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(32px, 5vw, 60px);
+      text-transform: uppercase; color: #EFF4FF;
+    }
+    .works-title-indented {
+      margin-left: 128px;
+      display: flex; align-items: baseline; gap: 12px;
+    }
+    .works-title-indented .cursive {
+      font-family: 'Condiment', cursive;
+      font-size: clamp(32px, 5vw, 60px); color: #6FFF00;
+    }
+    .works-title-indented .caps {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(32px, 5vw, 60px); text-transform: uppercase; color: #EFF4FF;
+    }
+    .see-all { display: flex; flex-direction: column; align-items: flex-end; }
+    .see-all-text { display: flex; align-items: flex-end; gap: 8px; }
+    .see-all span { font-family: 'Anton', sans-serif; text-transform: uppercase; color: #EFF4FF; }
+    .see-all .big { font-size: clamp(32px, 5vw, 60px); line-height: 1; }
+    .see-all .sm { font-size: clamp(20px, 3vw, 36px); display: flex; flex-direction: column; line-height: 1.1; padding-bottom: 4px; }
+    .neon-bar { height: 8px; background: #6FFF00; border-radius: 99px; margin-top: 8px; width: 100%; }
+
+    .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .work-card { border-radius: 32px; padding: 18px; transition: background 0.2s; cursor: pointer; }
+    .work-card:hover { background: rgba(255,255,255,0.1); }
+    .work-video-wrap { width: 100%; aspect-ratio: 1; border-radius: 24px; overflow: hidden; }
+    .work-video-wrap video { width: 100%; height: 100%; object-fit: cover; }
+    .work-info {
+      border-radius: 20px; padding: 16px 24px; margin-top: 12px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .work-info-text p:first-child {
+      font-family: 'Anton', sans-serif; font-size: 13px; text-transform: uppercase;
+      letter-spacing: 0.1em; color: #EFF4FF;
+    }
+    .work-info-text p:last-child {
+      font-family: 'Anton', sans-serif; font-size: 11px; text-transform: uppercase;
+      letter-spacing: 0.06em; color: rgba(111,255,0,0.8);
+    }
+    .arrow-btn {
+      width: 48px; height: 48px; border-radius: 50%; border: 0; cursor: pointer;
+      background: linear-gradient(135deg, #b724ff, #7c3aed);
+      box-shadow: 0 10px 25px rgba(168,85,247,0.5);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s; flex-shrink: 0;
+    }
+    .arrow-btn:hover { transform: scale(1.1); }
+    .arrow-btn svg { stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── CTA ── */
+    .cta { background: #010828; position: relative; }
+    .cta video { width: 100%; height: auto; display: block; }
+    .cta-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: flex-end;
+      padding-right: 20%;
+    }
+    .cta-text { position: relative; text-align: right; }
+    .cta-accent {
+      font-family: 'Condiment', cursive;
+      position: absolute; top: -40px; left: 0;
+      font-size: clamp(24px, 5vw, 68px); color: #6FFF00;
+      transform: rotate(-1deg); white-space: nowrap; mix-blend-mode: exclusion;
+    }
+    .cta-heading {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(20px, 4vw, 60px);
+      text-transform: uppercase; line-height: 1.1; color: #EFF4FF;
+    }
+    .cta-heading p { margin-bottom: 16px; }
+    .social-bottom {
+      position: absolute; left: 8%; bottom: 20%;
+      display: flex; flex-direction: column;
+      border-radius: 16px; overflow: hidden;
+    }
+    .social-bottom-btn {
+      width: clamp(56px, 14vw, 230px);
+      height: clamp(56px, 6vw, 92px);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border: 0; background: transparent;
+      transition: background 0.2s;
+    }
+    .social-bottom-btn + .social-bottom-btn { border-top: 1px solid rgba(255,255,255,0.1); }
+    .social-bottom-btn:hover { background: rgba(255,255,255,0.1); }
+    .social-bottom-btn svg { stroke: #EFF4FF; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    @media (max-width: 1024px) {
+      .hero-inner, .about-inner, .works { padding-left: 24px; padding-right: 24px; }
+      .hero-text { margin-left: 0; }
+      .main-nav { display: none; }
+      .social-col { display: none; }
+      .works-grid { grid-template-columns: 1fr; }
+      .works-title-indented { margin-left: 48px; }
+    }
+    @media (max-width: 640px) {
+      .about-top { flex-direction: column; }
+      .works-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SVG icon helpers -->
+<svg style="display:none" id="icons">
+  <symbol id="ic-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></symbol>
+  <symbol id="ic-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+  <symbol id="ic-fork" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M6 8v8M18 8a6 6 0 0 1-6 6H8"/></symbol>
+  <symbol id="ic-arrow" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></symbol>
+</svg>
+
+<!-- HERO -->
+<section class="hero">
+  <video autoplay loop muted playsinline
+    src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_045634_e1c98c76-1265-4f5c-882a-4276f2080894.mp4">
+  </video>
+  <div class="hero-inner">
+    <header>
+      <span class="logo-text">GO.</span>
+      <nav class="main-nav liquid-glass">
+        <ul>
+          <li><a href="#">Works</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Process</a></li>
+          <li><a href="#">Archive</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="social-col">
+        <button class="social-btn liquid-glass" aria-label="Mail"><svg width="20" height="20"><use href="#ic-mail"/></svg></button>
+        <button class="social-btn liquid-glass" aria-label="X"><svg width="20" height="20"><use href="#ic-x"/></svg></button>
+        <button class="social-btn liquid-glass" aria-label="Github"><svg width="20" height="20"><use href="#ic-fork"/></svg></button>
+      </div>
+    </header>
+    <div class="hero-text">
+      <div style="position:relative;">
+        <h1 class="hero-title">Rendered in<br />silence. Built<br />in ( real ) time.</h1>
+        <span class="accent">3D & motion works</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <video autoplay loop muted playsinline
+    src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_151551_992053d1-3d3e-4b8c-abac-45f22158f411.mp4">
+  </video>
+  <div class="about-inner">
+    <div class="about-top">
+      <div class="about-heading-wrap">
+        <h2 class="about-heading">Hello.<br />I make worlds.</h2>
+        <span class="accent-about">real & rendered</span>
+      </div>
+      <p class="about-desc">BLENDER. UNREAL ENGINE. AI. THIRTY SECONDS AT A TIME — CRAFTING MOTION, SPACE, AND THINGS THAT SHOULDN'T EXIST.</p>
+    </div>
+    <div class="about-bottom">
+      <div>
+        <p class="about-ghost">BLENDER. UNREAL ENGINE. AI. THIRTY SECONDS AT A TIME — CRAFTING MOTION, SPACE, AND THINGS THAT SHOULDN'T EXIST.</p>
+        <p class="about-ghost" style="margin-top:24px;">BLENDER. UNREAL ENGINE. AI. THIRTY SECONDS AT A TIME — CRAFTING MOTION, SPACE, AND THINGS THAT SHOULDN'T EXIST.</p>
+      </div>
+      <div style="text-align:right;max-width:40%;">
+        <p class="about-ghost">BLENDER. UNREAL ENGINE. AI. THIRTY SECONDS AT A TIME — CRAFTING MOTION, SPACE, AND THINGS THAT SHOULDN'T EXIST.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS GRID -->
+<section class="works">
+  <div class="works-inner">
+    <div class="works-header">
+      <div class="works-title-block">
+        <h2>Archive of</h2>
+        <div class="works-title-indented">
+          <span class="cursive">moving</span>
+          <span class="caps">frames</span>
+        </div>
+      </div>
+      <div class="see-all">
+        <div class="see-all-text">
+          <span class="big">SEE</span>
+          <div class="sm"><span>ALL</span><span>WORKS</span></div>
+        </div>
+        <div class="neon-bar"></div>
+      </div>
+    </div>
+
+    <div class="works-grid" id="worksGrid"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <video autoplay loop muted playsinline
+    src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_055729_72d66327-b59e-4ae9-bb70-de6ccb5ecdb0.mp4">
+  </video>
+  <div class="cta-overlay">
+    <div class="cta-text">
+      <span class="cta-accent">available now</span>
+      <div class="cta-heading">
+        <p>LET'S BUILD</p>
+        <p>SOMETHING THAT</p>
+        <p>DOESN'T EXIST</p>
+        <p>YET.</p>
+      </div>
+    </div>
+  </div>
+  <div class="social-bottom liquid-glass">
+    <button class="social-bottom-btn" aria-label="Mail"><svg width="20" height="20"><use href="#ic-mail"/></svg></button>
+    <button class="social-bottom-btn" aria-label="X"><svg width="20" height="20"><use href="#ic-x"/></svg></button>
+    <button class="social-bottom-btn" aria-label="Github"><svg width="20" height="20"><use href="#ic-fork"/></svg></button>
+  </div>
+</section>
+
+<script>
+const WORKS = [
+  { video: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_053923_22c0a6a5-313c-474c-85ff-3b50d25e944a.mp4', title: 'WORK 01', engine: 'UE5' },
+  { video: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_054411_511c1b7a-fb2f-42ef-bf6c-32c0b1a06e79.mp4', title: 'WORK 02', engine: 'BLENDER' },
+  { video: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_055427_ac7035b5-9f3b-4289-86fc-941b2432317d.mp4', title: 'WORK 03', engine: 'AI' },
+];
+const grid = document.getElementById('worksGrid');
+WORKS.forEach(({ video, title, engine }) => {
+  grid.innerHTML += `
+    <div class="work-card liquid-glass">
+      <div class="work-video-wrap">
+        <video autoplay loop muted playsinline src="${video}"></video>
+      </div>
+      <div class="work-info liquid-glass">
+        <div class="work-info-text">
+          <p>${title}</p><p>${engine}</p>
+        </div>
+        <button class="arrow-btn"><svg width="18" height="18" viewBox="0 0 24 24"><use href="#ic-arrow"/></svg></button>
+      </div>
+    </div>`;
+});
+</script>
+</body>
+</html>
